@@ -1,0 +1,37 @@
+CALDAS TV - Versión 31
+
+DIRECCIONES
+- https://caldastv.netlify.app ............... CANAL para los televidentes (compártelo)
+- https://caldastv.netlify.app/mesa-9ij3h8l0.html .. MESA (dirección secreta, solo para ustedes)
+- https://caldastv.netlify.app/ver.html ...... igual que el canal (enlace antiguo)
+
+ARCHIVOS
+- index.html y ver.html ... página del canal para el público
+- mesa-9ij3h8l0.html .. mesa de producción (no compartas este nombre)
+- config.json ............. enlace de la transmisión (YouTube o servidor .m3u8)
+- parrilla-caldastv.json .. programación que ve el público (se exporta desde la mesa)
+
+PARA QUE EL PÚBLICO VEA EL CANAL
+1. Mesa (mesa-9ij3h8l0.html) -> Salida limpia.
+2. OBS: Captura de ventana de la mesa + Captura de audio de aplicación (Chrome).
+3. OBS transmite a YouTube (Configuración > Emisión > YouTube - RTMPS > clave).
+4. En config.json pon el ID del canal de YouTube (empieza por UC):
+     "youtubeChannelId": "UCxxxxxxxxxxxxxxxxxxxxxx",
+5. Sube la carpeta. Comparte https://caldastv.netlify.app
+
+TRANSMISIÓN DIRECTA (SIN YOUTUBE)
+- En config.json escribe el código de la sala de la mesa:  "salaDirecta": "PEVCG",
+- La página del canal se conecta directo a la mesa. No necesita OBS.
+- Límite: según la subida de internet del PC (mesa > Sala > Máximo de personas).
+- Si en la mesa tocas "Crear otro código", actualiza salaDirecta.
+- Para muchos televidentes usa YouTube (youtubeChannelId) o un servidor .m3u8 (hlsUrl).
+
+PARRILLA DESDE EXCEL
+- Mesa > Parrilla > "Descargar plantilla". Llénala (un programa por fila) y guárdala como CSV.
+- Columnas: dia, hora, programa, tipo (grabado / en vivo / tanda), videos (separa con |),
+  seccion, minutos (solo en vivo), cortes cada (10, 15, 20 o 30 minutos).
+- "Cargar parrilla de Excel" y enciende "Parrilla automática".
+
+TRABAJAR DESDE EL PORTÁTIL
+- En el PC: Parrilla > "Guardar respaldo". En el portátil: abre la mesa > Parrilla > "Cargar respaldo".
+- Copia al portátil la carpeta de videos y elígela en la pestaña Videos.

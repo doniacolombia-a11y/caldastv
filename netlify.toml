@@ -1,0 +1,4 @@
+# Sitio estático: no necesita compilación.
+[build]
+  publish = "."
+  command = "echo 'CALDAS TV: sitio estatico, sin compilacion'"

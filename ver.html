@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1a33">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CALDAS TV">
+<title>CALDAS TV en vivo</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CALDAS TV">
+<meta property="og:title" content="CALDAS TV en vivo">
+<meta property="og:description" content="Mira el canal en vivo y la programación desde tu celular, computador o televisor.">
+<meta property="og:url" content="https://caldastv.netlify.app/">
+<meta property="og:image" content="https://caldastv.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Mira CALDAS TV en vivo y su programación.">
+
+<link rel="manifest" href="ver.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1a33;--bg2:#10244a;--card:#132b54;--line:#24406f;--text:#eef3fa;--muted:#9fb2cf;--amber:#F2B233;--red:#E5332A;
+  --fc:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--fb:Barlow,"Segoe UI",system-ui,-apple-system,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:16px/1.45 var(--fb);-webkit-font-smoothing:antialiased}
+button,select{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;max-width:1400px;margin:0 auto}
+.brand{white-space:nowrap;font-family:var(--fc);font-weight:700;font-size:28px;color:var(--amber);letter-spacing:.04em;display:flex;align-items:center;gap:10px}
+.brand img{height:40px;width:auto;display:block}
+.live{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-family:var(--fc);font-weight:700;font-size:15px;padding:2px 10px;border-radius:4px}
+.live i{width:8px;height:8px;border-radius:50%;background:#fff;animation:bl 1.2s steps(2) infinite}
+@keyframes bl{50%{opacity:.25}}
+.clock{white-space:nowrap;margin-left:auto;font-family:var(--fc);font-size:20px;color:var(--muted)}
+main{max-width:1400px;margin:0 auto;padding:0 16px 32px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.player{position:relative;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.player video,.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;gap:8px;background:radial-gradient(circle at 50% 40%,#16305d,#0b1a33)}
+.msg b{font-family:var(--fc);font-size:clamp(26px,5vw,44px);color:var(--amber)}
+.msg span{color:var(--muted);max-width:44ch}
+.tap{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);background:var(--amber);color:#1B1300;border:0;border-radius:999px;padding:10px 22px;font-family:var(--fc);font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.now{margin-top:14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.now .k{color:var(--muted)}
+.now b{font-family:var(--fc);font-size:28px}
+.tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;min-height:42px;cursor:pointer;font-family:var(--fc);font-weight:600;font-size:18px}
+aside{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px}
+aside h2{font-family:var(--fc);font-size:26px;margin:0 0 10px}
+.days{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.days button{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:14px;min-height:34px}
+.days button[aria-pressed="true"]{background:var(--amber);color:#1B1300;border-color:var(--amber);font-weight:600}
+ul{list-style:none;margin:0;padding:0}
+li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:2px 10px;padding:10px 8px;border-bottom:1px solid var(--line);border-radius:6px}
+li:last-child{border-bottom:0}
+li .t{font-family:var(--fc);font-weight:700;font-size:20px;grid-row:span 2;font-variant-numeric:tabular-nums}
+li .n{font-weight:600}
+li .m{font-size:13px;color:var(--muted)}
+li.on{background:rgba(229,51,42,.18)}
+li.on .m{color:#ffb4ae}
+.sec{display:inline-block;color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;margin-right:6px}
+li.past{opacity:.5}
+.empty{color:var(--muted);font-size:15px;padding:8px 0}
+.hint{font-size:13px;color:var(--muted);margin-top:14px}
+@media (max-width:420px){.brand{font-size:23px}.brand img{height:32px}.clock{font-size:17px}}
+@media (max-width:900px){main{grid-template-columns:1fr;padding:0 0 28px}.player{border-radius:0}.below{padding:0 16px}aside{margin:0 16px}header{padding:10px 16px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand" id="brand">CALDAS TV</div>
+  <span class="live" id="liveTag"><i></i>EN VIVO</span>
+  <span class="clock" id="clock"></span>
+</header>
+<main>
+  <section>
+    <div class="player" id="player">
+      <div class="msg" id="msg"><b>Conectando con el canal…</b><span></span></div>
+      <button class="tap" id="tap" type="button" hidden>Toca para activar el sonido</button>
+    </div>
+    <div class="below">
+      <div class="now"><span class="k">Ahora</span><b id="nowName">Programación de CALDAS TV</b></div>
+      <div class="now" style="margin-top:2px"><span class="k">Después</span><span id="nextName" class="k"></span></div>
+      <div class="tools">
+        <button class="btn" id="fs" type="button">Pantalla completa</button>
+        <button class="btn" id="install" type="button" hidden>Instalar la app</button>
+      </div>
+    </div>
+  </section>
+  <aside>
+    <h2>Programación</h2>
+    <div class="days" id="days"></div>
+    <ul id="list"></ul>
+    <p class="hint" id="hint">Para tenerlo como app: en el menú del navegador toca “Agregar a pantalla de inicio”.</p>
+  </aside>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+(async()=>{
+'use strict';
+const $=s=>document.querySelector(s);
+const DAYN=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const fmtHour=ms=>{const d=new Date(ms),h=d.getHours(),m=String(d.getMinutes()).padStart(2,'0');return((h%12)||12)+':'+m+(h<12?' a. m.':' p. m.');};
+const cfg=await fetch('config.json',{cache:'no-store'}).then(r=>r.ok?r.json():{}).catch(()=>({}));
+const name=cfg.nombre||'CALDAS TV';document.title=name+' en vivo';
+if(cfg.logo){const b=$('#brand');b.textContent='';const im=new Image();im.src=cfg.logo;im.alt=name;im.onerror=()=>{b.textContent=name;};b.appendChild(im);}else $('#brand').textContent=name;
+
+/* ---------- Reproductor ---------- */
+const P=$('#player'),M=$('#msg');
+function msg(t,s){M.hidden=false;M.querySelector('b').textContent=t;M.querySelector('span').textContent=s||'';}
+const hls=String(cfg.hlsUrl||'').trim(),yt=String(cfg.youtubeChannelId||'').trim();
+const direct=String(cfg.salaDirecta||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8);
+const qs=new URLSearchParams(location.search);
+function hq(sdp){const m=sdp.match(/a=rtpmap:(\d+) opus\/48000\/2/i);if(!m)return sdp;const pt=m[1];const re=new RegExp('a=fmtp:'+pt+' ([^\\r\\n]*)');const add='stereo=1;sprop-stereo=1;maxaveragebitrate=128000;useinbandfec=1';
+  if(re.test(sdp))return sdp.replace(re,(a,p)=>'a=fmtp:'+pt+' '+p.split(';').filter(x=>!/^(stereo|sprop-stereo|maxaveragebitrate|useinbandfec)=/.test(x)).concat(add.split(';')).join(';'));return sdp;}
+function startDirect(){
+  if(typeof Peer!=='function'){msg('No se pudo conectar','Revisa tu internet y recarga la página.');return;}
+  const v=document.createElement('video');v.playsInline=true;v.muted=true;v.autoplay=true;v.setAttribute('playsinline','');P.prepend(v);
+  const au=document.createElement('audio');au.setAttribute('playsinline','');document.body.appendChild(au);let sound=false;
+  const ice=[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']},{urls:['turn:openrelay.metered.ca:80','turn:openrelay.metered.ca:443','turn:openrelay.metered.ca:443?transport=tcp'],username:'openrelayproject',credential:'openrelayproject'}];
+  if(cfg.turn&&cfg.turn.urls)ice.push({urls:cfg.turn.urls,username:cfg.turn.username,credential:cfg.turn.credential});
+  const pid='caldastv-estudio-'+direct.toLowerCase();
+  let peer=null,dc=null,call=null,live=false,full=false,t=null;
+  msg('Conectando con la transmisión…','');
+  const retry=ms=>{clearTimeout(t);t=setTimeout(dial,ms);};
+  function dial(){
+    if(!peer||peer.destroyed)return;
+    if(peer.disconnected){try{peer.reconnect()}catch(e){}retry(3000);return;}
+    try{dc&&dc.close()}catch(e){}
+    full=false;const my=dc=peer.connect(pid,{reliable:true,metadata:{role:'monitor',q:'publico'}});
+    my.on('data',d=>{if(d&&d.t==='full'){full=true;msg('El canal está lleno en este momento','Te conectamos solo en cuanto haya espacio.');}});
+    my.on('close',()=>{if(dc!==my)return;live=false;if(!full)msg('Volvemos en unos momentos','Reconectando…');retry(full?15000:4000);});
+    my.on('error',()=>{});
+    clearTimeout(t);t=setTimeout(()=>{if(dc===my&&!live)dial();},20000);
+  }
+  peer=new Peer({config:{iceServers:ice}});
+  peer.on('open',dial);
+  peer.on('call',c=>{
+    try{call&&call.close()}catch(e){}call=c;c.answer(undefined,{sdpTransform:hq});
+    c.on('stream',ms=>{try{c.peerConnection.getReceivers().forEach(r=>{try{r.jitterBufferTarget=600}catch(e){}})}catch(e){}
+      v.srcObject=new MediaStream(ms.getVideoTracks());v.play().catch(()=>{});
+      au.srcObject=new MediaStream(ms.getAudioTracks());if(sound)au.play().catch(()=>{});
+      live=true;M.hidden=true;$('#liveTag').hidden=false;$('#tap').hidden=sound;clearTimeout(t);});
+    c.on('error',()=>{});
+    const w=()=>{const pc=c.peerConnection;if(!pc){setTimeout(w,200);return;}pc.addEventListener('connectionstatechange',()=>{if(call!==c)return;const s=pc.connectionState;if(s==='failed'||s==='closed'){live=false;msg('Volvemos en unos momentos','Reconectando…');retry(3000);}});};w();
+  });
+  peer.on('error',e=>{const ty=e&&e.type;
+    if(ty==='peer-unavailable'){live=false;msg('Fuera del aire','La transmisión empieza pronto. Esta página se conecta sola.');$('#liveTag').hidden=true;retry(8000);}
+    else if(['network','server-error','socket-error','socket-closed'].includes(ty))setTimeout(()=>{try{peer.reconnect()}catch(x){}},4000);});
+  peer.on('disconnected',()=>setTimeout(()=>{try{if(!peer.destroyed)peer.reconnect()}catch(x){}},3000));
+  const on=()=>{sound=true;au.muted=false;au.volume=1;au.play().catch(()=>{});$('#tap').hidden=true;};
+  $('#tap').addEventListener('click',e=>{e.stopPropagation();on();});
+  P.addEventListener('click',()=>{if(!sound&&live)on();});
+}
+if(qs.get('rol')==='camara'){
+  msg('Este enlace de cámara es antiguo','Pide al equipo del canal el QR nuevo desde la mesa de producción.');
+}else if(hls){
+  const v=document.createElement('video');v.playsInline=true;v.setAttribute('playsinline','');v.muted=true;v.autoplay=true;v.controls=false;P.prepend(v);
+  let h=null,retryT=null;
+  const start=()=>{
+    clearTimeout(retryT);
+    if(window.Hls&&Hls.isSupported()){
+      if(h)h.destroy();h=new Hls({liveSyncDurationCount:3,maxBufferLength:20,enableWorker:true});
+      h.loadSource(hls);h.attachMedia(v);
+      h.on(Hls.Events.MANIFEST_PARSED,()=>{v.play().catch(()=>{});});
+      h.on(Hls.Events.ERROR,(e,d)=>{if(!d.fatal)return;if(d.type===Hls.ErrorTypes.MEDIA_ERROR){h.recoverMediaError();return;}msg('Volvemos en unos momentos','La señal está en pausa. Se reconecta sola.');retryT=setTimeout(start,6000);});
+    }else if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=hls;v.play().catch(()=>{});}
+    else msg('Este navegador no puede reproducir el canal','Prueba con Chrome, Safari o Edge actualizados.');
+  };
+  v.addEventListener('playing',()=>{M.hidden=true;$('#tap').hidden=!v.muted;});
+  v.addEventListener('waiting',()=>{});
+  v.addEventListener('error',()=>{if(!h){msg('Volvemos en unos momentos','Se reconecta sola.');retryT=setTimeout(()=>{v.load();v.play().catch(()=>{});},6000);}});
+  $('#tap').addEventListener('click',()=>{v.muted=false;v.volume=1;v.play().catch(()=>{});$('#tap').hidden=true;});
+  P.addEventListener('click',e=>{if(e.target===v&&v.muted){v.muted=false;$('#tap').hidden=true;}});
+  start();
+}else if(direct&&!yt){
+  startDirect();
+}else if(yt){
+  const f=document.createElement('iframe');
+  f.src='https://www.youtube.com/embed/live_stream?channel='+encodeURIComponent(yt)+'&autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1';
+  f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title=name+' en vivo';
+  f.addEventListener('load',()=>{M.hidden=true;});P.prepend(f);
+}else{
+  msg('Canal aún sin configurar','Escribe el enlace de la transmisión en el archivo config.json.');$('#liveTag').hidden=true;
+}
+$('#fs').addEventListener('click',()=>{const el=P;if(document.fullscreenElement){document.exitFullscreen().catch(()=>{});return;}
+  if(el.requestFullscreen)el.requestFullscreen().then(()=>{try{screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}).catch(()=>{const v=P.querySelector('video');if(v&&v.webkitEnterFullscreen)v.webkitEnterFullscreen();});
+  else{const v=P.querySelector('video');if(v&&v.webkitEnterFullscreen)v.webkitEnterFullscreen();}});
+
+/* ---------- Programación ---------- */
+const data=await fetch(cfg.parrilla||'parrilla-caldastv.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+const sched=data&&Array.isArray(data.sched)?data.sched.filter(x=>x&&x.name&&/^\d\d:\d\d$/.test(x.time)&&Array.isArray(x.days)):[];
+const meta=(data&&data.libMeta)||{};
+const secs=(data&&Array.isArray(data.sections))?data.sections:[];const secOf=id=>secs.find(s=>s.id===id);
+const durOf=it=>{if(it.type==='vivo')return(it.mins||60)*60;let t=0;for(const n of it.files||[]){const d=(meta[n]||{}).dur;if(!d)return null;t+=d;}return t||null;};
+function occ(from){const out=[];const d=new Date(from);d.setHours(0,0,0,0);d.setDate(d.getDate()-1);
+  for(let k=0;k<9;k++){const dow=d.getDay();for(const it of sched){if(!it.days.includes(dow))continue;const[h,m]=it.time.split(':').map(Number);const s=new Date(d);s.setHours(h,m,0,0);out.push({it,start:s.getTime()});}d.setDate(d.getDate()+1);}
+  out.sort((a,b)=>a.start-b.start);
+  for(let i=0;i<out.length;i++){const du=durOf(out[i].it),nx=out[i+1]?out[i+1].start:Infinity;out[i].end=du?Math.min(out[i].start+du*1000,nx):Math.min(nx,out[i].start+12*3600e3);}
+  return out;}
+let day=new Date().getDay();
+function render(){
+  const now=Date.now(),o=occ(now);
+  const act=o.filter(x=>x.start<=now&&now<x.end).pop(),nxt=o.find(x=>x.start>now);
+  $('#nowName').textContent=act?act.it.name:(sched.length?'Programación de '+name:name);
+  $('#nextName').textContent=nxt?nxt.it.name+' a las '+fmtHour(nxt.start):'';
+  $('#clock').textContent=fmtHour(now);
+  const dd=$('#days');dd.innerHTML='';
+  [1,2,3,4,5,6,0].forEach(d=>{const b=document.createElement('button');b.type='button';b.textContent=DAYN[d]+(d===new Date().getDay()?' (hoy)':'');b.setAttribute('aria-pressed',String(d===day));b.addEventListener('click',()=>{day=d;render();});dd.appendChild(b);});
+  const ul=$('#list');ul.innerHTML='';
+  const items=sched.filter(it=>it.days.includes(day)).sort((a,b)=>a.time.localeCompare(b.time));
+  if(!items.length){const p=document.createElement('p');p.className='empty';p.textContent=sched.length?'No hay programas este día.':'Pronto publicaremos la programación.';ul.appendChild(p);return;}
+  const today=day===new Date().getDay(),hm=new Date().toTimeString().slice(0,5);
+  items.forEach(it=>{
+    const li=document.createElement('li');const on=today&&act&&act.it.id===it.id;
+    li.className=on?'on':(today&&it.time<hm?'past':'');
+    const t=document.createElement('span');t.className='t';t.textContent=it.time;
+    const n=document.createElement('span');n.className='n';n.textContent=it.name;
+    const m=document.createElement('span');m.className='m';m.textContent=on?'Al aire ahora':it.type==='vivo'?'En vivo':it.type==='tanda'?'Comerciales':'Programa';
+    const sc=secOf(it.sec);if(sc&&/^#[0-9a-f]{6}$/i.test(sc.color)){const tg=document.createElement('span');tg.className='sec';tg.style.background=sc.color;tg.textContent=sc.name;m.prepend(tg);}
+    li.append(t,n,m);ul.appendChild(li);
+  });
+}
+render();setInterval(render,30000);
+
+/* ---------- Instalar ---------- */
+let deferred=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#install').hidden=false;$('#hint').hidden=true;});
+$('#install').addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice.catch(()=>{});deferred=null;$('#install').hidden=true;});
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>
